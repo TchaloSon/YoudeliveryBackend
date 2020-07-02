@@ -40,15 +40,13 @@ class AuthController extends Controller
       'telephone'=>'required',
       'prenom'=>'required',
       'adresse'=>'required',
-      'email' => 'required|email', 
-      'password' => 'required', 
-      'c_password' => 'required|same:password', 
+      'email' => 'required|email',
     ]);
     if ($validator->fails()) { 
       return response()->json(['error'=>$validator->errors()]);
     }
     $postArray = $request->all(); 
-    $postArray['password'] = bcrypt($postArray['password']); 
+    $postArray['password'] = bcrypt(123456); 
     $user = User::create($postArray); 
     $success['token'] =  $user->createToken('LaraPassport')->accessToken; 
     $success['nom'] =  $user->nom;
